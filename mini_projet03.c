@@ -11,17 +11,23 @@ int main(){
     char reponse_negatife [3][200] = {"i am sorry to hear that","i hop things geting better soon","stay strong"};
     char reponse_neutre [3][200] = {"i see how can i help you","is there anything you want to talk about","i am here to listen"};
     printf("ce chat bot peux comprendre ton etat\n");
+    char historique[1000] = "";
     while (1)
     {
         char reponse[100];
         printf("you : ");
         fgets(reponse, 100, stdin);
-        for (int i = 0; i <= 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             if (strstr(reponse,positive[i]))
             {
                 srand(time(NULL));
                 int random_index = rand() % 3;
+                strcat(historique, "you : ");
+                strcat(historique, reponse);
+                strcat(historique, "bot : ");
+                strcat(historique, reponse_positive[random_index]);
+                strcat(historique, "\n\n");
                 printf("%s\n", reponse_positive[random_index]);
                 break;
             }
@@ -29,6 +35,11 @@ int main(){
             {
                 srand(time(NULL));
                 int random_index = rand() % 3;
+                strcat(historique, "you : ");
+                strcat(historique, reponse);
+                strcat(historique, "bot : ");
+                strcat(historique, reponse_negatife[random_index]);
+                strcat(historique, "\n\n");
                 printf("%s\n", reponse_negatife[random_index]);
                 break;
             }
@@ -36,9 +47,25 @@ int main(){
             {
                 srand(time(NULL));
                 int random_index = rand() % 3;
+                strcat(historique, "you : ");
+                strcat(historique, reponse);
+                strcat(historique, "bot : ");
+                strcat(historique, reponse_neutre[random_index]);
+                strcat(historique, "\n\n");
                 printf("%s\n", reponse_neutre[random_index]);
                 break;
             }
+
+            else if (strstr(reponse,"historique"))
+            {
+                printf("\n%s\n", historique);
+                exit(0);
+            }
+            else if (strstr(reponse,"exit"))
+            {
+                exit(0);
+            }
         }
     }
-}
+    return 0;
+    }
